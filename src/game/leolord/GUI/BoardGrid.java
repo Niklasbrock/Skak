@@ -14,7 +14,7 @@ public class BoardGrid extends GridPane {
         setAlignment(Pos.CENTER);
     }
 
-    public BoardGrid setStartGrid(Map<Integer, Piece> pieceMap){
+    public BoardGrid updateGrid(Map<Integer, Piece> pieceMap){
         int row = 0;
         int column = 0;
         for (int i = 0; i < 64; i++){
@@ -27,4 +27,5 @@ public class BoardGrid extends GridPane {
         }
         return this;
     }
+
 }

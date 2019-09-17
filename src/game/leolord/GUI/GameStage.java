@@ -10,4 +10,6 @@ public class GameStage extends Stage {
         setMinHeight(800);
         show();
     }
+
+
 }

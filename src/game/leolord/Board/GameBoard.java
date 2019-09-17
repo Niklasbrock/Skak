@@ -36,11 +36,15 @@ public class GameBoard {
         pieceMap.put(startMove, new Filler(startMove));
     }
 
+    public void startMove(){
+
+    }
+    public void endMove(){
+
+    }
+
     public GameBoard(){
-        pieceMap = getStartPiecePositionMap();
-        GameStage gameStage = new GameStage();
-        gameStage.setScene(new BoardScene(new BoardGrid().setStartGrid(pieceMap)));
-        printBoard();
+//        printBoard();
 //        tileMap = getEmptyTileMap();
 //        gameLayoutPrint = new ArrayList<>();
 //        try{
