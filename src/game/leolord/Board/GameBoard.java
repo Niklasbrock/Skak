@@ -1,6 +1,10 @@
 package game.leolord.Board;
 
+import game.leolord.GUI.BoardGrid;
+import game.leolord.GUI.BoardScene;
+import game.leolord.GUI.GameStage;
 import game.leolord.Pieces.*;
+import javafx.application.Application;
 
 //import java.io.File;
 //import java.io.FileNotFoundException;
@@ -28,13 +32,14 @@ public class GameBoard {
         "--a-b-c-d-e-f-g-h--");
     }
     public void movePiece(int startMove, int endMove){
-        System.out.println("Moving " + pieceMap.get(startMove).getIdentifier() + " at " + startMove + " to " + endMove);
         pieceMap.put(endMove, pieceMap.get(startMove));
         pieceMap.put(startMove, new Filler(startMove));
     }
 
     public GameBoard(){
         pieceMap = getStartPiecePositionMap();
+        GameStage gameStage = new GameStage();
+        gameStage.setScene(new BoardScene(new BoardGrid().setStartGrid(pieceMap)));
         printBoard();
 //        tileMap = getEmptyTileMap();
 //        gameLayoutPrint = new ArrayList<>();
@@ -52,7 +57,7 @@ public class GameBoard {
 //        }
     }
 
-    public static Map<Integer, Piece> getStartPiecePositionMap(){
+    public Map<Integer, Piece> getStartPiecePositionMap(){
         Map<Integer, Piece> startMap = new HashMap<>();
         startMap.put(0, new Rook(0, Alliance.WHITE));
         startMap.put(1, new Knight(1, Alliance.WHITE));
