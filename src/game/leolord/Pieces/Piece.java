@@ -2,7 +2,6 @@ package game.leolord.Pieces;
 
 
 import game.leolord.GUI.PieceButton;
-import javafx.scene.control.Button;
 
 public abstract class Piece {
     private int coordinate;

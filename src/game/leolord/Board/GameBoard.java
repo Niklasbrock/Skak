@@ -1,23 +1,18 @@
 package game.leolord.Board;
 
 import game.leolord.GUI.BoardGrid;
-import game.leolord.GUI.BoardScene;
-import game.leolord.GUI.GameStage;
-import game.leolord.Pieces.*;
-import javafx.application.Application;
 
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.util.ArrayList;
+import game.leolord.Pieces.*;
 import java.util.HashMap;
 import java.util.Map;
-//import java.util.Scanner;
 
 public class GameBoard {
-//    Map<Integer, Tile> tileMap;
-    private static Map<Integer, Piece> pieceMap;
-//    private static ArrayList<String> gameLayoutPrint;
 
+    private static Map<Integer, Piece> pieceMap;
+    private int startMove;
+    private int endMove;
+    private boolean selectingStartMove;
+    private boolean selectingEndMove;
 
     public void printBoard(){
         System.out.printf("\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", "--a-b-c-d-e-f-g-h--",
@@ -31,34 +26,52 @@ public class GameBoard {
         "1-" + pieceMap.get(0).getIdentifier() + "-" + pieceMap.get(1).getIdentifier() + "-" + pieceMap.get(2).getIdentifier() + "-" + pieceMap.get(3).getIdentifier() + "-" + pieceMap.get(4).getIdentifier() + "-" + pieceMap.get(5).getIdentifier() + "-" + pieceMap.get(6).getIdentifier() + "-" + pieceMap.get(7).getIdentifier() + "-1",
         "--a-b-c-d-e-f-g-h--");
     }
+
     public void movePiece(int startMove, int endMove){
+        Piece bufferPiece = pieceMap.get(endMove);
         pieceMap.put(endMove, pieceMap.get(startMove));
-        pieceMap.put(startMove, new Filler(startMove));
+        pieceMap.get(endMove).setCoordinate(endMove);
+        if (bufferPiece.getPieceAlliance() == null){
+            pieceMap.put(startMove, bufferPiece);
+            pieceMap.get(startMove).setCoordinate(startMove);
+        } else{
+            pieceMap.put(startMove, new Filler(startMove));
+        }
     }
 
-    public void startMove(){
-
+    public void select(int selection){
+        if (selectingStartMove){
+            System.out.println("First Move: " + selection + " " + pieceMap.get(selection).getIdentifier() + pieceMap.get(selection).getPieceAlliance());
+            startMove = selection;
+            selectingStartMove = false;
+            selectingEndMove = true;
+        }else if (selectingEndMove){
+            System.out.println("Second Move: " + selection + " " + pieceMap.get(selection).getIdentifier() + pieceMap.get(selection).getPieceAlliance());
+            endMove = selection;
+            selectingEndMove = false;
+            selectingStartMove = true;
+            movePiece(startMove, endMove);
+        }
     }
-    public void endMove(){
-
+    public void startGame(BoardGrid gameBoard){
+        for (int i = 0; i < 64; i++){
+            Piece pieceBuffer = pieceMap.get(i);
+            pieceMap.get(i).getPieceButton().setOnMouseClicked(event -> {
+                select(pieceBuffer.getCoordinate());
+                if (selectingStartMove){
+                    gameBoard.updateGrid(pieceMap);
+                }
+            });
+        }
     }
 
+    public boolean checkWinState(){
+//        if either alliance king is absent return true
+        return false;
+    }
     public GameBoard(){
-//        printBoard();
-//        tileMap = getEmptyTileMap();
-//        gameLayoutPrint = new ArrayList<>();
-//        try{
-//            Scanner read = new Scanner(new File("consoleLayout.txt"));
-//            while(read.hasNext()){
-//                gameLayoutPrint.add(read.nextLine());
-//            }
-//        } catch(FileNotFoundException e){
-//            System.out.println(e);
-//        }
-//        Prints out the Game Layout
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println(gameLayoutPrint.get(i));
-//        }
+        selectingStartMove = true;
+        selectingEndMove = false;
     }
 
     public Map<Integer, Piece> getStartPiecePositionMap(){
@@ -89,16 +102,10 @@ public class GameBoard {
         for (int i = 55; i > 47; i--){
             startMap.put(i, new Pawn(i, Alliance.BLACK));
         }
-
+        pieceMap = startMap;
         return startMap;
     }
 
-    public Map<Integer, Tile> getTileMap(){
-        Map<Integer, Tile> tileMap = new HashMap<>();
-        tileMap.put(0, new Tile(false, "A1"));
-//        This would require 64 lines of code...
-        return tileMap;
-    }
 
     public Map<Integer, Piece> getPieceMap() {
         return pieceMap;
