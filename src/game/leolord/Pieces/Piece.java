@@ -2,12 +2,14 @@ package game.leolord.Pieces;
 
 
 import game.leolord.GUI.PieceButton;
+import javafx.scene.image.Image;
 
 public abstract class Piece {
     private int coordinate;
     private char identifier;
     private Alliance pieceAlliance;
     private PieceButton pieceButton;
+    private Image texture;
 
     public Piece(char identifier, int coordinate, Alliance pieceAlliance){
         this.identifier = identifier;
@@ -51,6 +53,14 @@ public abstract class Piece {
 
     public void setPieceButton(PieceButton pieceButton) {
         this.pieceButton = pieceButton;
+    }
+
+    public Image getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Image texture) {
+        this.texture = texture;
     }
 
     @Override

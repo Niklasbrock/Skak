@@ -14,7 +14,7 @@ public class BoardGrid extends GridPane {
         setAlignment(Pos.CENTER);
     }
 
-    public BoardGrid updateGrid(Map<Integer, Piece> pieceMap){
+    public void updateGrid(Map<Integer, Piece> pieceMap){
         int row = 0;
         int column = 0;
         for (int i = 0; i < 64; i++){
@@ -26,7 +26,6 @@ public class BoardGrid extends GridPane {
             add(pieceMap.get(i).getPieceButton(), column, row);
             column++;
             }
-            return this;
     }
 
     public BoardGrid setStartGrid(Map<Integer, Piece> pieceMap){
@@ -38,9 +37,11 @@ public class BoardGrid extends GridPane {
                 column = 0;
             }
             add(pieceMap.get(i).getPieceButton(), column, row);
+            if (column % 2 != 0 && pieceMap.get(i).getCoordinate() % 2 != 0){
+                pieceMap.get(i).getPieceButton().setStyle("-fx-background-color: grey");
+            }
             column++;
         }
         return this;
     }
-
 }

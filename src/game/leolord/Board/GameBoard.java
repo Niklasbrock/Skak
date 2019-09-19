@@ -91,14 +91,14 @@ public class GameBoard {
             startMap.put(i, new Filler(i));
         }
 
-        startMap.put(63, new Rook(0, Alliance.BLACK));
-        startMap.put(62, new Knight(1, Alliance.BLACK));
-        startMap.put(61, new Bishop(2, Alliance.BLACK));
-        startMap.put(60, new King(3, Alliance.BLACK));
-        startMap.put(59, new Queen(4, Alliance.BLACK));
-        startMap.put(58, new Bishop(5, Alliance.BLACK));
-        startMap.put(57, new Knight(6, Alliance.BLACK));
-        startMap.put(56, new Rook(7, Alliance.BLACK));
+        startMap.put(63, new Rook(63, Alliance.BLACK));
+        startMap.put(62, new Knight(62, Alliance.BLACK));
+        startMap.put(61, new Bishop(61, Alliance.BLACK));
+        startMap.put(60, new King(60, Alliance.BLACK));
+        startMap.put(59, new Queen(59, Alliance.BLACK));
+        startMap.put(58, new Bishop(58, Alliance.BLACK));
+        startMap.put(57, new Knight(57, Alliance.BLACK));
+        startMap.put(56, new Rook(56, Alliance.BLACK));
         for (int i = 55; i > 47; i--){
             startMap.put(i, new Pawn(i, Alliance.BLACK));
         }
