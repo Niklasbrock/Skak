@@ -11,7 +11,10 @@ public class PieceButton extends Button {
 
     public PieceButton(Piece piece) {
         setPrefSize(75, 75);
-        setOnMouseClicked(event -> selected = true);
+        setStyle("-fx-background-color: transparent;");
+        setOnMouseClicked(event -> {
+            selected = true;
+        });
         if (piece.getPieceAlliance() != null){
             String fileName = piece.getPieceAlliance().name() + piece.getIdentifier() + ".gif";
             System.out.println(fileName);
